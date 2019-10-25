@@ -22,5 +22,11 @@ Route::group(['middleware'=>'auth'], function(){
 
     Route::view('sms', 'sms');
     Route::post('sms/send', 'SmsController@send');
+
+    Route::get('employee/import', 'EmployeeController@import');
+    Route::post('employee/import/save', 'EmployeeController@save');
+    Route::resource('department','DepartmentController')
+        ->except(['show', 'destroy']);
+
 });
 

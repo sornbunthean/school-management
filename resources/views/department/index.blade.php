@@ -1,13 +1,13 @@
 @extends('layouts.master')
 @section('header')
-    <h3>Users</h3>
+    <h3>Department</h3>
 @endsection
 @section('content')
 <div class="card height-auto">
             <div class="card-body">
                 <div class="heading-layout1">
                     <div class="item-title">
-                        <a href="{{ route('user.create') }}" class="btn btn-lg btn-oval btn-success">
+                        <a href="{{ route('department.create') }}" class="btn btn-lg btn-oval btn-success">
                               Create
                         </a>
                     </div>
@@ -28,6 +28,14 @@
                         </div>
                     </div>
                 </form>
+                @if(Session::has('success') )
+                <div class="alert alert-success alert-dismissible fade show" role="alert">
+                        <strong>{{ session('success') }}</strong> 
+                        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                        </button>
+                </div>
+                @endif
                 <div class="table-responsive">
                     <div id="DataTables_Table_0_wrapper" class="dataTables_wrapper no-footer"><table class="table display data-table text-nowrap dataTable no-footer" id="DataTables_Table_0" role="grid">
                         <thead>
@@ -35,18 +43,16 @@
                                   <th class="sorting_asc" rowspan="1" colspan="1" aria-label="Roll" style="width: 100px;">
                                     <div class="form-check">
                                         <input type="checkbox" class="form-check-input checkAll">
-                                        <label class="form-check-label">Roll</label>
+                                        <label class="form-check-label">No</label>
                                     </div>
                                 </th>
-                                <th class="sorting" tabindex="0" aria-controls="DataTables_Table_0" rowspan="1" colspan="1" aria-label="Photo: activate to sort column ascending" style="width: 52px;">Photo</th>
-                                <th class="sorting" tabindex="0" aria-controls="DataTables_Table_0" rowspan="1" colspan="1" aria-label="Name: activate to sort column ascending" style="width: 94px;">Name</th>
-                                <th class="sorting" tabindex="0" aria-controls="DataTables_Table_0" rowspan="1" colspan="1" aria-label="Gender: activate to sort column ascending" style="width: 62px;">Username</th>
-                                <th class="sorting" tabindex="0" aria-controls="DataTables_Table_0" rowspan="1" colspan="1" aria-label="Class: activate to sort column ascending" style="width: 48px;">Email</th>
-                                <th class="sorting" tabindex="0" aria-controls="DataTables_Table_0" rowspan="1" colspan="1" aria-label="Section: activate to sort column ascending" style="width: 65px;">Action</th>
+                                <th class="sorting" tabindex="0" aria-controls="DataTables_Table_0" rowspan="1" colspan="1" aria-label="Photo: activate to sort column ascending" style="width: 52px;">Name</th>
+                                <th class="sorting" tabindex="0" aria-controls="DataTables_Table_0" rowspan="1" colspan="1" aria-label="Photo: activate to sort column ascending" style="width: 52px;">Action</th>
+
                         </thead>
                         <tbody>
                               @php ($i=1)
-                              @foreach($users as $user)
+                              @foreach($depts as $dept)
                               <tr role="row" class="even">
                                     <td class="sorting_1">
                                           <div class="form-check">
@@ -54,18 +60,11 @@
                                           <label class="form-check-label">{{ $i++ }}</label>
                                           </div>
                                     </td>
-                                    <td class="text-center"><img src="{{ $user->photo }}" alt="student" width="50" style="border-radius:5px;"></td>
-                                    <td>{{ $user->name }}</td>
-                                    <td>{{ $user->username }}</td>
-                                    <td>{{ $user->email }}</td>  
+                                    <td>{{ $dept->name }}</td>
                                     <td>
-                                       <a href="{{ url('user/destroy', $user->id) }}" class="btn btn-lg btn-warning text-primary">
-                                           <i class="fa fa-trash"></i>
-                                       </a>
-                                        &nbsp; 
-                                         <a href="{{ url('user/' .$user->id .'/edit') }}" class="btn btn-lg btn-success text-white" title="Edit">
-                                               <i class="fa fa-edit"></i>
-                                         </a>
+                                         <a href="{{ route('department.edit', $dept->id) }}" class="btn btn-lg btn-warning text-primary" title="Delete">
+                                               <i class="fa fa-trash"></i>
+                                         </a> &nbsp; 
                                     </td>
                               </tr>
                             @endforeach
